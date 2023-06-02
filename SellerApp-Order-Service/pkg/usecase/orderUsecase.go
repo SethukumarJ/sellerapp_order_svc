@@ -9,10 +9,21 @@ import (
 	"github.com/SethukumarJ/sellerapp-order-svc/pkg/domain"
 	repository "github.com/SethukumarJ/sellerapp-order-svc/pkg/repository/interface"
 	interfaces "github.com/SethukumarJ/sellerapp-order-svc/pkg/usecase/interface"
+	utils "github.com/SethukumarJ/sellerapp-order-svc/pkg/utils"
 )
 
 type orderUseCase struct {
 	orderRepo repository.OrderRepository
+}
+
+// FetchOrder implements interfaces.OrderUseCase
+func (*orderUseCase) FetchOrder(ctx context.Context, userid int, filter domain.Filter, pagenation utils.Filter) ([]domain.ReqOrder, utils.Metadata, error) {
+	panic("unimplemented")
+}
+
+// UpdateOrder implements interfaces.OrderUseCase
+func (*orderUseCase) UpdateOrder(ctx context.Context, orderid string, status string) (string, error) {
+	panic("unimplemented")
 }
 
 // CreateOrder implements interfaces.OrderUseCase
@@ -27,14 +38,14 @@ func (o *orderUseCase) CreateOrder(ctx context.Context, order domain.ReqOrder) (
 	var id string
 
 	for _, item := range items {
-		_,err := o.orderRepo.FindItem(ctx,item.ID)
+		_, err := o.orderRepo.FindItem(ctx, item.ID)
 		if err != nil {
 			id, err = o.orderRepo.CreateItem(ctx, item)
 			if err != nil {
 				return "", err
 			}
 		}
-		
+
 		it = append(it, id)
 	}
 	itemIDs := strings.Join(it, ",")
