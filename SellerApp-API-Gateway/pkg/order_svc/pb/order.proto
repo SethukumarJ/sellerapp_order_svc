@@ -1,0 +1,35 @@
+syntax = "proto3";
+package order;
+
+option go_package = "./pkg/order_svc/pb";
+
+service OrderService {
+    rpc CreateOrder(CreateOrderRequest) returns (CreateOrderResponse) {}
+    
+  }
+  
+  // AddOrder
+  
+  message CreateOrderRequest {
+    string UserId =1 ;
+    string OrderId =2 ;
+    string Status =3 ;
+    repeated Item Item =4;
+    float Total =5 ;
+    string CurrencyUnit =6;
+  }
+  
+  message CreateOrderResponse {
+    int32 status = 1;
+    string error = 2;
+    string id = 3;
+  }
+  
+  
+  message Item {
+    string ID = 1;
+    string Description =2 ;
+    float Price = 3;
+    int64 Quantity = 4;
+  }
+  
