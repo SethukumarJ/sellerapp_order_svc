@@ -20,9 +20,10 @@ var envs = []string{
 func LoadConfig() (Config, error) {
 	var config Config
 
-	viper.AddConfigPath("./pkg/config/envs/")
-	viper.SetConfigFile("./pkg/config/envs/dev.env")
+	viper.AddConfigPath("./")
+	viper.SetConfigFile(".env")
 	viper.ReadInConfig()
+
 
 	for _, env := range envs {
 		if err := viper.BindEnv(env); err != nil {

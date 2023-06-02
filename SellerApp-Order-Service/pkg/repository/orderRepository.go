@@ -13,6 +13,15 @@ type orderDatabase struct {
 	DB *gorm.DB
 }
 
+// FindItem implements interfaces.OrderRepository
+func (c *orderDatabase) FindItem(ctx context.Context, id string) (domain.Item, error) {
+
+	var item domain.Item
+	 err := c.DB.Where("id = ?", id).First(&item).Error
+
+	 return item, err
+}
+
 // CreateItem implements interfaces.OrderRepository
 func (o *orderDatabase) CreateItem(ctx context.Context, item domain.Item) (string, error) {
 	err := o.DB.Create(&item).Error

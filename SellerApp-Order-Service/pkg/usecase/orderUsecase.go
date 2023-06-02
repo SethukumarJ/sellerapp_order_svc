@@ -20,15 +20,21 @@ func (o *orderUseCase) CreateOrder(ctx context.Context, order domain.ReqOrder) (
 	items := order.Item
 	fmt.Println(len(items))
 	if len(items) == 0 {
-		return "", errors.New("there no item in order")
+		return "", errors.New("there is no item in order")
 	}
 
 	var it []string
+	var id string
+
 	for _, item := range items {
-		id, err := o.orderRepo.CreateItem(ctx, item)
+		_,err := o.orderRepo.FindItem(ctx,item.ID)
 		if err != nil {
-			return "", err
+			id, err = o.orderRepo.CreateItem(ctx, item)
+			if err != nil {
+				return "", err
+			}
 		}
+		
 		it = append(it, id)
 	}
 	itemIDs := strings.Join(it, ",")
