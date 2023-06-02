@@ -12,5 +12,5 @@ type OrderRepository interface {
 	CreateItem(ctx context.Context, item domain.Item) (string, error)
 	FindItem(ctx context.Context, id string ) (domain.Item, error)
 	UpdateOrder(ctx context.Context, orderid, status string) (string, error)
-	FetchOrder(ctx context.Context, userid int, filter domain.Filter, pagenation utils.Filter) ([]domain.ReqOrder, utils.Metadata, error)
+	FetchOrder(ctx context.Context, userid int, filter domain.Filter, pagenation utils.Filter) ([]domain.Order, utils.Metadata, error)
 }

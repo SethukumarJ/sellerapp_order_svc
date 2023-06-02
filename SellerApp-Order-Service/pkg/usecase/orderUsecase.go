@@ -16,14 +16,41 @@ type orderUseCase struct {
 	orderRepo repository.OrderRepository
 }
 
-// FetchOrder implements interfaces.OrderUseCase
-func (*orderUseCase) FetchOrder(ctx context.Context, userid int, filter domain.Filter, pagenation utils.Filter) ([]domain.ReqOrder, utils.Metadata, error) {
-	panic("unimplemented")
+func (o *orderUseCase) FetchOrder(ctx context.Context, userid int, filter domain.Filter, pagenation utils.Filter) ([]domain.ReqOrder, utils.Metadata, error) {
+	order, metadata, err := o.orderRepo.FetchOrder(ctx, userid, filter, pagenation)
+	if err != nil {
+		return []domain.ReqOrder{}, metadata, err
+	}
+
+	Rorder := []domain.ReqOrder{}
+	for _, od := range order {
+		itemId := strings.Split(od.Item_id, ",")
+		items := []domain.Item{}
+		for _, id := range itemId {
+			item, err := o.orderRepo.FindItem(ctx, id)
+			if err != nil {
+				return []domain.ReqOrder{}, metadata, err
+			}
+			items = append(items, item)
+		}
+		recorder := domain.ReqOrder{
+			ID:           od.ID,
+			Status:       od.Status,
+			Item:         items,
+			Total:        od.Total,
+			CurrencyUnit: od.CurrencyUnit,
+		}
+		Rorder = append(Rorder, recorder)
+
+	}
+
+	return Rorder, metadata, err
 }
 
 // UpdateOrder implements interfaces.OrderUseCase
-func (*orderUseCase) UpdateOrder(ctx context.Context, orderid string, status string) (string, error) {
-	panic("unimplemented")
+func (o *orderUseCase) UpdateOrder(ctx context.Context, orderid string, status string) (string, error) {
+	id, err := o.orderRepo.UpdateOrder(ctx, orderid, status)
+	return id, err
 }
 
 // CreateOrder implements interfaces.OrderUseCase

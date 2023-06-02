@@ -51,6 +51,24 @@ func (c *OrderService) CreateOrder(ctx context.Context, req *pb.CreateOrderReque
 
 }
 
+// UpdateOrder implements pb.OrderServiceServer
+func (c *OrderService) UpdateOrder(ctx context.Context, req *pb.UpdateOrderRequest) (*pb.UpdateOrderResponse, error) {
+	id, err := c.orderUseCase.UpdateOrder(ctx, req.OrderId, req.Status)
+	if err != nil {
+		return &pb.UpdateOrderResponse{
+			Status: http.StatusUnprocessableEntity,
+			Error:  err.Error(),
+		}, err
+	}
+
+	return &pb.UpdateOrderResponse{
+		Status: http.StatusOK,
+		Id:     id,
+	}, nil
+
+}
+
+
 // FetchOrder implements pb.OrderServiceServer
 func (c *OrderService) FetchOrder(ctx context.Context, req *pb.FetchOrderRequest) (*pb.FetchOrderResponse, error) {
 	filter := domain.Filter{
