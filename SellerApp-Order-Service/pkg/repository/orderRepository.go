@@ -61,6 +61,10 @@ func (c *orderDatabase) FindItem(ctx context.Context, id string) (domain.Item, e
 
 	var item domain.Item
 	err := c.DB.Where("id = ?", id).First(&item).Error
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		err = errors.New("no item in the list")
+	}
+
 
 	return item, err
 }

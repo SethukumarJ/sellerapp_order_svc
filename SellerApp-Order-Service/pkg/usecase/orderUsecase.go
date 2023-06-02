@@ -22,16 +22,19 @@ func (o *orderUseCase) FetchOrder(ctx context.Context, userid int, filter domain
 		return []domain.ReqOrder{}, metadata, err
 	}
 
+	
+
 	Rorder := []domain.ReqOrder{}
 	for _, od := range order {
+		fmt.Println("itemid",od.Item_id)
 		itemId := strings.Split(od.Item_id, ",")
 		items := []domain.Item{}
 		for _, id := range itemId {
 			item, err := o.orderRepo.FindItem(ctx, id)
-			if err != nil {
-				return []domain.ReqOrder{}, metadata, err
+			if err == nil {
+				items = append(items, item)
 			}
-			items = append(items, item)
+			
 		}
 		recorder := domain.ReqOrder{
 			ID:           od.ID,
