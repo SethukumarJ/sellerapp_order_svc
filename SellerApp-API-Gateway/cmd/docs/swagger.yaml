@@ -24,6 +24,13 @@ definitions:
       total:
         type: number
     type: object
+  domain.UpdateOrder:
+    properties:
+      id:
+        type: string
+      status:
+        type: string
+    type: object
   pb.DeleteUserResponse:
     properties:
       error:
@@ -227,6 +234,55 @@ paths:
       tags:
       - Authentication-Service
   /order:
+    get:
+      operationId: Fetchorder
+      parameters:
+      - description: 'Status : '
+        in: query
+        name: status
+        type: string
+      - description: 'Min Total : '
+        in: query
+        name: mintotal
+        type: string
+      - description: 'Max Total : '
+        in: query
+        name: maxtolat
+        type: string
+      - description: 'Sort By : '
+        in: query
+        name: sortby
+        type: string
+      - description: 'Sort Order : '
+        in: query
+        name: sortorder
+        type: string
+      - description: 'Page : '
+        in: query
+        name: page
+        required: true
+        type: string
+      - description: 'Pagesize : '
+        in: query
+        name: pagesize
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - BearerAuth: []
+      summary: Fetch Order
+      tags:
+      - Order
     post:
       operationId: createorder
       parameters:
@@ -252,6 +308,31 @@ paths:
       summary: Create Order
       tags:
       - Order-service
+    put:
+      operationId: Updateorder
+      parameters:
+      - description: Update Order Detials
+        in: body
+        name: updateorderdetials
+        required: true
+        schema:
+          $ref: '#/definitions/domain.UpdateOrder'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - BearerAuth: []
+      summary: Update Order
+      tags:
+      - Order
   /user/delete/{id}:
     delete:
       operationId: Delete user
