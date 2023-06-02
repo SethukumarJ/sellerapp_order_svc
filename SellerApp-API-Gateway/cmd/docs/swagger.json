@@ -1,7 +1,7 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "This is Money management project. You can visit the GitHub repository at https://github.com/SethukumarJ/sellerapp-Gateway",
+        "description": "This is order management sample service. You can visit the GitHub repository at https://github.com/SethukumarJ/sellerapp-Gateway",
         "title": "CashierX API",
         "contact": {
             "name": "API Support",
@@ -134,6 +134,48 @@
                 }
             }
         },
+        "/order": {
+            "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Order-service"
+                ],
+                "summary": "Create Order",
+                "operationId": "createorder",
+                "parameters": [
+                    {
+                        "description": "Order Detials",
+                        "name": "orderdetials",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/domain.Order"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            }
+        },
         "/user/delete/{id}": {
             "delete": {
                 "produces": [
@@ -250,6 +292,43 @@
         }
     },
     "definitions": {
+        "domain.Item": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "number"
+                },
+                "quantity": {
+                    "type": "integer"
+                }
+            }
+        },
+        "domain.Order": {
+            "type": "object",
+            "properties": {
+                "currency_unit": {
+                    "type": "string"
+                },
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/domain.Item"
+                    }
+                },
+                "status": {
+                    "type": "string"
+                },
+                "total": {
+                    "type": "number"
+                }
+            }
+        },
         "pb.DeleteUserResponse": {
             "type": "object",
             "properties": {
@@ -377,6 +456,19 @@
                 },
                 "user_name": {
                     "type": "string"
+                }
+            }
+        },
+        "response.Response": {
+            "type": "object",
+            "properties": {
+                "data": {},
+                "errors": {},
+                "message": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "boolean"
                 }
             }
         },

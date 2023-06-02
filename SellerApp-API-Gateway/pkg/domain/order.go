@@ -1,11 +1,11 @@
 package domain
 
 type Order struct {
-	ID           string  `json:"id" `
+	ID           string  `json:"id" swaggerignore:"true"`
 	Status       string  `json:"status"`
 	Item         []Item  `json:"items"`
 	Total        float64 `json:"total"`
-	CurrencyUnit string  `json:"currencyUnit"`
+	CurrencyUnit string  `json:"currency_unit"`
 }
 
 type Item struct {
