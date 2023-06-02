@@ -14,3 +14,8 @@ type Item struct {
 	Price       float64 `json:"price"`
 	Quantity    int     `json:"quantity"`
 }
+type UpdateOrder struct {
+	ID     string `json:"id" `
+	Status string `json:"status"`
+}
+
