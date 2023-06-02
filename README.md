@@ -6,19 +6,19 @@ This project includes authenction service and order service accompanied with api
 
 # `API-GATEWAY`
 The API gateway in our microservice project acts as a centralized entry point for accessing and managing the order service and auth service. It provides a unified interface for clients to interact with these services without needing to know their specific locations.
+### `To run`
 ```bash
 # Navigate into the project
-cd ./go-gin-clean-arch
-
-# Install dependencies
-make deps
-
-# Generate wire_gen.go for dependency injection
+cd ./SellerApp-API-Gateway
 # Please make sure you are export the env for GOPATH
-make wire
-
 # Run the project in Development Mode
-make run
+ docker build -t my-api-gateway .
+ docker run -it --rm -p 3005:3005 my-api-gateway
+
+# Alternative
+# Install the dependencies 
+make deps
+ 
 ```
 
 Additional commands:
