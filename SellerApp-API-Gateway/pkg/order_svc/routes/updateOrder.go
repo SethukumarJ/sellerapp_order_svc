@@ -11,7 +11,7 @@ import (
 
 // @Summary Update Order
 // @ID Updateorder
-// @Tags Order
+// @Tags Order-service
 // @Produce json
 // @Security BearerAuth
 // @Param updateorderdetials body domain.UpdateOrder{} true "Update Order Detials"

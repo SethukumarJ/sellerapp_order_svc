@@ -152,7 +152,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Order"
+                    "Order-service"
                 ],
                 "summary": "Fetch Order",
                 "operationId": "Fetchorder",
@@ -227,7 +227,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Order"
+                    "Order-service"
                 ],
                 "summary": "Update Order",
                 "operationId": "Updateorder",

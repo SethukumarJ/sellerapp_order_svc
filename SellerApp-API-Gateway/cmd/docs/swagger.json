@@ -145,7 +145,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "Order"
+                    "Order-service"
                 ],
                 "summary": "Fetch Order",
                 "operationId": "Fetchorder",
@@ -220,7 +220,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "Order"
+                    "Order-service"
                 ],
                 "summary": "Update Order",
                 "operationId": "Updateorder",

@@ -282,7 +282,7 @@ paths:
       - BearerAuth: []
       summary: Fetch Order
       tags:
-      - Order
+      - Order-service
     post:
       operationId: createorder
       parameters:
@@ -332,7 +332,7 @@ paths:
       - BearerAuth: []
       summary: Update Order
       tags:
-      - Order
+      - Order-service
   /user/delete/{id}:
     delete:
       operationId: Delete user

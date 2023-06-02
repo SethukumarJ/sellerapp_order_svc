@@ -11,7 +11,7 @@ import (
 
 // @Summary Fetch Order
 // @ID Fetchorder
-// @Tags Order
+// @Tags Order-service
 // @Produce json
 // @Security BearerAuth
 // @Param        status   query      string  false  "Status : "
