@@ -141,6 +141,163 @@ const docTemplate = `{
                 }
             }
         },
+        "/order": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Order-service"
+                ],
+                "summary": "Fetch Order",
+                "operationId": "Fetchorder",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Status : ",
+                        "name": "status",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Min Total : ",
+                        "name": "mintotal",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Max Total : ",
+                        "name": "maxtolat",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Sort By : ",
+                        "name": "sortby",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Sort Order : ",
+                        "name": "sortorder",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Page : ",
+                        "name": "page",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Pagesize : ",
+                        "name": "pagesize",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Order-service"
+                ],
+                "summary": "Update Order",
+                "operationId": "Updateorder",
+                "parameters": [
+                    {
+                        "description": "Update Order Detials",
+                        "name": "updateorderdetials",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/domain.UpdateOrder"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Order-service"
+                ],
+                "summary": "Create Order",
+                "operationId": "createorder",
+                "parameters": [
+                    {
+                        "description": "Order Detials",
+                        "name": "orderdetials",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/domain.Order"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            }
+        },
         "/user/delete/{id}": {
             "delete": {
                 "produces": [
@@ -257,6 +414,54 @@ const docTemplate = `{
         }
     },
     "definitions": {
+        "domain.Item": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "number"
+                },
+                "quantity": {
+                    "type": "integer"
+                }
+            }
+        },
+        "domain.Order": {
+            "type": "object",
+            "properties": {
+                "currency_unit": {
+                    "type": "string"
+                },
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/domain.Item"
+                    }
+                },
+                "status": {
+                    "type": "string"
+                },
+                "total": {
+                    "type": "number"
+                }
+            }
+        },
+        "domain.UpdateOrder": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                }
+            }
+        },
         "pb.DeleteUserResponse": {
             "type": "object",
             "properties": {
@@ -387,6 +592,19 @@ const docTemplate = `{
                 }
             }
         },
+        "response.Response": {
+            "type": "object",
+            "properties": {
+                "data": {},
+                "errors": {},
+                "message": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "boolean"
+                }
+            }
+        },
         "routes.LoginRequestBody": {
             "type": "object",
             "properties": {
@@ -440,7 +658,7 @@ var SwaggerInfo = &swag.Spec{
 	BasePath:         "/",
 	Schemes:          []string{},
 	Title:            "CashierX API",
-	Description:      "This is Money management project. You can visit the GitHub repository at https://github.com/SethukumarJ/sellerapp-Gateway",
+	Description:      "This is order management sample service. You can visit the GitHub repository at https://github.com/SethukumarJ/sellerapp-Gateway",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
 	LeftDelim:        "{{",

@@ -6,7 +6,8 @@ import (
 
 	"github.com/SethukumarJ/sellerapp/pkg/auth"
 	"github.com/SethukumarJ/sellerapp/pkg/config"
-	
+	order "github.com/SethukumarJ/sellerapp/pkg/order_svc"
+
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
@@ -14,7 +15,7 @@ import (
 
 // @title CashierX API
 // @version 1.0
-// @description This is Money management project. You can visit the GitHub repository at https://github.com/SethukumarJ/sellerapp-Gateway
+// @description This is order management sample service. You can visit the GitHub repository at https://github.com/SethukumarJ/sellerapp-Gateway
 
 // @contact.name API Support
 // @contact.url sethukumarj.com
@@ -45,7 +46,7 @@ func main() {
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	authSvc := *auth.RegisterRoutes(r, &c)
 	fmt.Println("authSvc", authSvc)
-	// order.RegisterRoutes(r, &c, &authSvc)
+	order.RegisterRoutes(r, &c, &authSvc)
 
 	r.Run(c.Port)
 }
