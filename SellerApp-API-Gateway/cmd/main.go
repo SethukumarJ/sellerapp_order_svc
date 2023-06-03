@@ -13,7 +13,7 @@ import (
 	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
-// @title CashierX API
+// @title Order Management API
 // @version 1.0
 // @description This is order management sample service. You can visit the GitHub repository at https://github.com/SethukumarJ/sellerapp-Gateway
 

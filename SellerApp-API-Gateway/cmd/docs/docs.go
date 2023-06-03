@@ -657,7 +657,7 @@ var SwaggerInfo = &swag.Spec{
 	Host:             "localhost:3005",
 	BasePath:         "/",
 	Schemes:          []string{},
-	Title:            "CashierX API",
+	Title:            "Order Management API",
 	Description:      "This is order management sample service. You can visit the GitHub repository at https://github.com/SethukumarJ/sellerapp-Gateway",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
