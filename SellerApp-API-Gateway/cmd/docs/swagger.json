@@ -2,7 +2,7 @@
     "swagger": "2.0",
     "info": {
         "description": "This is order management sample service. You can visit the GitHub repository at https://github.com/SethukumarJ/sellerapp-Gateway",
-        "title": "CashierX API",
+        "title": "Order Management API",
         "contact": {
             "name": "API Support",
             "url": "sethukumarj.com",

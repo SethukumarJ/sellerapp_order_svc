@@ -155,7 +155,7 @@ info:
   license:
     name: MIT
     url: https://opensource.org/licenses/MIT
-  title: CashierX API
+  title: Order Management API
   version: "1.0"
 paths:
   /auth/login:
